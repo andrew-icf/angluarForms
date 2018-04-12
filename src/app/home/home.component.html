@@ -1,2 +1,80 @@
-<h3>Home Component</h3>
-<p>Welcome to Angular Seed</p>
+<div class="container" >
+  <h3>Angular Template Form</h3>
+  <form #form='ngForm' class="needs-validation" (submit)="submitForm(form)" novalidate > <!-- template reference variable for angular novalidate turns off browser validation -->
+    <div class="form-group" >
+      <label for="firstNameId" class="control-label">First Name</label> <!-- for matches the id on the input linking them together, you don't have to do this but I am leaving it in for practice -->
+      <!-- template reference variable #firstName, by itself will give you css validatos, set it equal to ngModel for ngModel validation properties -->
+      <input id="firstNameId"
+             #firstName="ngModel"
+             type="text"
+             placeholder="First Name"
+             name='First Name'
+             class="form-control"
+             [ngModel]="model.firstName"
+             (ngModelChange)="fisrtNameToUpperCase($event)"
+             required > <!-- name it and ngModel tells angular to watch this input -->
+             <!-- You are not able to pass a method to two way data binding
+             [ngModel]="model.firstName"
+             (ngModelChange)="fisrtNameToUpperCase($event)"
+             Property Binding  [(ngModel)]="model.firstName" -->
+             <div *ngIf="firstName.invalid && firstName.touched" class="alert alert-danger">
+               First name is required
+             </div>
+    </div>
+
+    <!-- <h4>{{ firstName.className }}</h4>  for the properties call them directly off of firstName ex: firstName.valid -->
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text"
+             #lastName="ngModel"
+             name="Last Name"
+             class="form-control"
+             [(ngModel)]="model.lastName"
+             placeholder="Last Name"
+             required >
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"
+               name="is-full-time"
+               [(ngModel)]="model.isFullTime"> Full Time Employee
+      </label>
+    </div>
+    <label>Payment Type</label>
+    <div class="radio">
+      <label>
+        <input type="radio"
+               name="paymentType"
+               value="W2"
+               [(ngModel)]="model.paymentType"
+               checked> W2 <!-- Value is what will be posted in the form -->
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio"
+               name="paymentType"
+               [(ngModel)]="model.paymentType"
+               value="1099"> 1099
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="control-label">Primary Language</label>
+      <select class="custom-select"
+              name="primaryLanguage"
+              #primaryLanguage
+              [(ngModel)]="model.primaryLanguage"
+              (blur)="validatePrimaryLanguage(primaryLanguage.value)"
+              (change)="validatePrimaryLanguage(primaryLanguage.value)"
+              required>
+        <option value="default">Select a Language...</option>
+        <option *ngFor="let lang of languages">{{ lang }}</option> <!-- usually coming from a data service -->
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit"> Ok</button>
+  </form>
+</div>
+Model: {{ model | json }}
+<br>
+Angular: {{form.value | json}}
+<!-- {{ form.pristine }} -->
