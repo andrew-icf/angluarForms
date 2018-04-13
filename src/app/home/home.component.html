@@ -1,8 +1,8 @@
 <div class="container" >
   <h3>Angular Template Form</h3>
-  <form #form='ngForm' class="needs-validation" (submit)="submitForm(form)" novalidate > <!-- template reference variable for angular novalidate turns off browser validation -->
+  <form #form='ngForm' class="needs-validation" (submit)="submitForm(form)" novalidate > <!--  template reference variable for angular novalidate turns off browser validation -->
     <div class="form-group" >
-      <label for="firstNameId" class="control-label">First Name</label> <!-- for matches the id on the input linking them together, you don't have to do this but I am leaving it in for practice -->
+      <label for="firstNameId" class="control-label">First Name</label>  <!-- for matches the id on the input linking them together, you don't have to do this but I am leaving it in for practice -->
       <!-- template reference variable #firstName, by itself will give you css validatos, set it equal to ngModel for ngModel validation properties -->
       <input id="firstNameId"
              #firstName="ngModel"
@@ -12,7 +12,7 @@
              class="form-control"
              [ngModel]="model.firstName"
              (ngModelChange)="fisrtNameToUpperCase($event)"
-             required > <!-- name it and ngModel tells angular to watch this input -->
+             required >  <!-- name it and ngModel tells angular to watch this input -->
              <!-- You are not able to pass a method to two way data binding
              [ngModel]="model.firstName"
              (ngModelChange)="fisrtNameToUpperCase($event)"
@@ -22,7 +22,7 @@
              </div>
     </div>
 
-    <!-- <h4>{{ firstName.className }}</h4>  for the properties call them directly off of firstName ex: firstName.valid -->
+    <!-- <h4>{{ firstName.className }}</h4>   for the properties call them directly off of firstName ex: firstName.valid -->
     <div class="form-group">
       <label>Last Name</label>
       <input type="text"
@@ -47,7 +47,7 @@
                name="paymentType"
                value="W2"
                [(ngModel)]="model.paymentType"
-               checked> W2 <!-- Value is what will be posted in the form -->
+               checked>  <!-- W2  Value is what will be posted in the form -->
       </label>
     </div>
     <div class="radio">
@@ -68,13 +68,69 @@
               (change)="validatePrimaryLanguage(primaryLanguage.value)"
               required>
         <option value="default">Select a Language...</option>
-        <option *ngFor="let lang of languages">{{ lang }}</option> <!-- usually coming from a data service -->
+        <option *ngFor="let lang of languages">{{ lang }}</option>  <!-- usually coming from a data service -->
       </select>
     </div>
     <button class="btn btn-primary" type="submit"> Ok</button>
   </form>
+  Model: {{ model | json }}
+  <br>
+  Angular: {{form.value | json}}
 </div>
-Model: {{ model | json }}
-<br>
-Angular: {{form.value | json}}
+
 <!-- {{ form.pristine }} -->
+
+<div class="container">
+  <h3>Angular Bootstrap Styles</h3>
+  <form class="" action="index.html" method="post">
+    <div class="col-xs-12 col-12 col-md-4 form-group">
+    <input
+      name="startDate"
+      placeholder="Datepicker"
+      class="form-control"
+      [(ngModel)]="startDate"
+      bsDatepicker>
+    </div>
+    <div class="col-xs-12 col-12 col-md-3 form-group">
+      <button class="btn btn-success" (click)="dp.toggle()">Select Date</button>
+    </div>
+    <timepicker
+      name="startTime"
+      [(ngModel)]="startTime"> <!-- Bind to a variable on the component -->
+    </timepicker>
+    <div class="btn-group">
+      <label
+        class="btn btn-primary"
+        name="taxType"
+        [(ngModel)]="taxType"
+        btnRadio="W2">W2
+      </label>
+      <label
+        class="btn btn-primary"
+        name="taxType"
+        [(ngModel)]="taxType"
+        btnRadio="1099">1099
+      </label>
+      <label
+        class="btn btn-primary"
+        name="taxType"
+        [(ngModel)]="taxType"
+        btnRadio="Other">Other
+      </label>
+    </div><br>
+    <rating
+      name="rate"
+      [(ngModel)]="rate"
+      [max]="10"
+      [readonly]="isReadonly">
+    </rating>
+    <div
+      class="card"
+      style="width: 30%;">
+        <pre
+            class="card-block card-header"
+            style="margin:15px 0;">Rate: <b>{{rate}}</b>
+          </pre>
+    </div>
+  </form>
+</div>

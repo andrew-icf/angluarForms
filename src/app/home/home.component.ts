@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { FormPoster } from '../services/form-poster.service';
 import { NgForm }from '@angular/forms';
+
 @Component({
   selector: 'home',
   styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+  startDate = new Date('Jan 01 2019');
+  startTime = new Date('Apr 13 2018 4:00 PM');
+  taxType = 'W2';
   languages = [];
   model = new Employee('', '', true, 'W2', 'default');
   hasPrimaryLanguageError = false;
@@ -48,4 +52,5 @@ export class HomeComponent {
       this.model.firstName = value;
     }
   }
+
 }
